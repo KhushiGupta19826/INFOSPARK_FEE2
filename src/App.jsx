@@ -6,8 +6,8 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Landing from "./pages/Landing";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import SignIn from "./pages/Signin";
+import SignUp from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Weather from "./pages/Weather";
 import News from "./pages/News";
