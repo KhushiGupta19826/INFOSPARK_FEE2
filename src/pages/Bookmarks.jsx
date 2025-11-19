@@ -5,18 +5,15 @@ import "../styles/Bookmarks.css";
 function Bookmarks() {
   const [bookmarks, setBookmarks] = useState([]);
 
-  // Load bookmarks from localStorage
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("bookmarks")) || [];
       setBookmarks(saved);
-    } catch (error) {
-      console.error("Error loading bookmarks:", error);
+    } catch {
       setBookmarks([]);
     }
   }, []);
 
-  // Remove a bookmark
   const handleRemoveBookmark = (article) => {
     const updated = bookmarks.filter(
       (b) => b.article_id !== article.article_id
@@ -31,7 +28,6 @@ function Bookmarks() {
       <div className="bookmarks-container">
         <h1 className="bookmarks-title">My Bookmarks</h1>
 
-        {/* Empty State */}
         {bookmarks.length === 0 && (
           <div className="empty-state">
             <p>No bookmarks yet</p>
@@ -41,7 +37,6 @@ function Bookmarks() {
           </div>
         )}
 
-        {/* Bookmarks Grid */}
         {bookmarks.length > 0 && (
           <div className="bookmarks-grid">
             {bookmarks.map((article) => (

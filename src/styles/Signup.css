@@ -1,18 +1,14 @@
-/* ===================================
-   SIGN UP PAGE STYLES
-   =================================== */
 
-/* Container for the entire sign-up page */
 .signup-container {
   min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
 }
 
-/* Sign-up form wrapper */
 .signup-form-wrapper {
   background: var(--white);
   border-radius: 12px;
@@ -34,7 +30,6 @@
   }
 }
 
-/* Form heading */
 .signup-form-wrapper h1 {
   font-size: var(--font-size-2xl);
   font-weight: 700;
@@ -50,14 +45,12 @@
   margin-bottom: var(--spacing-xl);
 }
 
-/* Form element */
 .signup-form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-/* Form group (label + input) */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -70,7 +63,6 @@
   color: var(--dark-gray);
 }
 
-/* Input fields */
 .signup-form input[type="email"],
 .signup-form input[type="password"] {
   width: 100%;
@@ -90,7 +82,6 @@
   color: var(--medium-gray);
 }
 
-/* Input focus states */
 .signup-form input[type="email"]:focus,
 .signup-form input[type="password"]:focus {
   outline: none;
@@ -99,13 +90,11 @@
   background: var(--white);
 }
 
-/* Input hover state */
 .signup-form input[type="email"]:hover,
 .signup-form input[type="password"]:hover {
   border-color: var(--primary-dark);
 }
 
-/* Input error state */
 .signup-form input.input-error {
   border-color: var(--error-red);
 }
@@ -114,7 +103,6 @@
   box-shadow: 0 0 0 4px rgba(244, 67, 54, 0.1);
 }
 
-/* Submit button */
 .signup-submit-btn {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-xl);
@@ -150,7 +138,6 @@
   box-shadow: none;
 }
 
-/* Error message display */
 .signup-error-message {
   background: #FFEBEE;
   color: var(--error-red);
@@ -181,7 +168,6 @@
   font-size: var(--font-size-lg);
 }
 
-/* Link to sign-in page */
 .signup-footer {
   text-align: center;
   margin-top: var(--spacing-xl);
@@ -212,13 +198,7 @@
   color: var(--primary-dark);
 }
 
-/* ===================================
-   RESPONSIVE DESIGN
-   =================================== */
 
-/* Mobile: Default styles above (320px - 767px) */
-
-/* Tablet: 768px and up */
 @media (min-width: 768px) {
   .signup-container {
     padding: var(--spacing-2xl);
@@ -237,7 +217,6 @@
   }
 }
 
-/* Desktop: 1024px and up */
 @media (min-width: 1024px) {
   .signup-form-wrapper {
     max-width: 500px;
@@ -254,7 +233,6 @@
   }
 }
 
-/* Accessibility: Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .signup-form-wrapper,
   .signup-error-message {
@@ -269,7 +247,6 @@
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .signup-form input[type="email"],
   .signup-form input[type="password"] {

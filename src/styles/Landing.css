@@ -14,8 +14,10 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background: transparent;
-
   padding: 1rem;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .landing-content {
@@ -23,6 +25,11 @@
   color: white;
   max-width: 600px;
   animation: fadeInUp 0.8s ease-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .landing-heading {
@@ -90,7 +97,50 @@
   outline-offset: 4px;
 }
 
-/* Responsive Design */
+.navbar {
+  background: linear-gradient(90deg, #6455c9 0%, #764ba2 100%);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-link:hover {
+  opacity: 0.8;
+}
+
 @media (max-width: 768px) {
   .landing-heading {
     font-size: 2.5rem;
@@ -106,6 +156,18 @@
   }
 
   .landing-buttons {
+    gap: 1rem;
+  }
+
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .navbar-links {
     gap: 1rem;
   }
 }
@@ -134,19 +196,9 @@
     width: 100%;
     max-width: 250px;
   }
-}
-.landing-container {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
 
-.landing-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1;   /* content stays above particles */
+  .navbar-links {
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
 }
-

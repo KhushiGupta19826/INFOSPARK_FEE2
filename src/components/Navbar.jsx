@@ -45,7 +45,7 @@ export default function Navbar() {
               className="nav-link"
               onClick={closeMobileMenu}
             >
-              Contact
+              About
             </NavLink>
           </li>
 

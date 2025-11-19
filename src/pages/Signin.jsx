@@ -15,14 +15,11 @@ function SignIn() {
     e.preventDefault();
     setError('');
 
-    // Call signIn from AuthContext
     const result = signIn(email, password);
     
     if (result.success) {
-      // Navigate to /dashboard on success
       navigate('/dashboard');
     } else {
-      // Display error message for invalid credentials
       setError(result.error || 'Sign in failed. Please try again.');
     }
   };

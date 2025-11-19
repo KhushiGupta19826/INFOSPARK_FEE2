@@ -6,7 +6,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Load user on initial mount
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem("currentUser");
@@ -21,30 +20,24 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // -------------------------------------------------------------
-  // SIGN UP
-  // -------------------------------------------------------------
   const signUp = (email, password) => {
     try {
       const users = JSON.parse(localStorage.getItem("users")) || [];
 
-      // check if email exists
       const exists = users.some((u) => u.email === email);
       if (exists) {
         return { success: false, error: "User already exists" };
       }
 
-      // create new user
       const newUser = {
         id: Date.now().toString(),
         email,
-        password: btoa(password), // simple encoding
+        password: btoa(password), 
       };
 
       users.push(newUser);
       localStorage.setItem("users", JSON.stringify(users));
 
-      // store current user (without password)
       const current = { id: newUser.id, email: newUser.email };
       localStorage.setItem("currentUser", JSON.stringify(current));
 
@@ -57,9 +50,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // -------------------------------------------------------------
-  // SIGN IN
-  // -------------------------------------------------------------
+
   const signIn = (email, password) => {
     try {
       const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -85,9 +76,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // -------------------------------------------------------------
-  // SIGN OUT
-  // -------------------------------------------------------------
+
   const signOut = () => {
     localStorage.removeItem("currentUser");
     setUser(null);

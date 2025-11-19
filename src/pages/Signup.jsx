@@ -16,33 +16,27 @@ function SignUp() {
     e.preventDefault();
     setError('');
 
-    // Validate email format using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
 
-    // Check password length (minimum 8 characters)
     if (password.length < 8) {
       setError('Password must be at least 8 characters long');
       return;
     }
 
-    // Verify password and confirmPassword match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
-    // Call signUp from AuthContext
     const result = signUp(email, password);
     
     if (result.success) {
-      // Navigate to /dashboard on success
       navigate('/dashboard');
     } else {
-      // Display error message for validation failures
       setError(result.error || 'Sign up failed. Please try again.');
     }
   };

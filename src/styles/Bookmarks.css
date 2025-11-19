@@ -16,7 +16,6 @@
   margin-bottom: 2rem;
 }
 
-/* Bookmarks Grid */
 .bookmarks-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -24,7 +23,6 @@
   margin-bottom: 2rem;
 }
 
-/* Empty State */
 .empty-state {
   background: white;
   padding: 3rem 2rem;
@@ -47,7 +45,6 @@
   margin-top: 1rem !important;
 }
 
-/* Responsive Design - Tablet */
 @media (min-width: 768px) {
   .bookmarks-page {
     padding: 3rem 2rem;
@@ -62,7 +59,6 @@
   }
 }
 
-/* Responsive Design - Desktop */
 @media (min-width: 1024px) {
   .bookmarks-grid {
     grid-template-columns: repeat(3, 1fr);

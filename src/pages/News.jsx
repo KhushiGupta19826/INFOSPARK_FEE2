@@ -7,8 +7,7 @@ import '../styles/News.css';
 
 function News() {
   const navigate = useNavigate();
-  
-  // State management
+
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [category, setCategory] = useState('');
@@ -21,18 +20,24 @@ function News() {
   const categories = ['All', 'Technology', 'Sports', 'Business', 'Health', 'Entertainment'];
   const ARTICLES_PER_PAGE = 9;
 
-  // Fetch news from newsdata.io API
+  useEffect(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    if (savedBookmarks) {
+      setBookmarks(JSON.parse(savedBookmarks));
+    }
+  }, []);
+
   const fetchNews = async (selectedCategory = '') => {
     setLoading(true);
     setError('');
-    
+
     try {
       const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
       const url = `https://newsdata.io/api/1/news?apikey=pub_bbddc45395d44699b1ab5ce808da07ee&language=en${categoryParam}`;
-      
+
       const response = await fetch(url);
       const data = await response.json();
-      
+
       if (data.status === 'success' && data.results) {
         setArticles(data.results);
         setFilteredArticles(data.results);
@@ -41,90 +46,61 @@ function News() {
       }
     } catch (err) {
       setError('Failed to fetch news. Please try again later.');
-      console.error('Error fetching news:', err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Load bookmarks from localStorage on mount
-  useEffect(() => {
-    const savedBookmarks = localStorage.getItem('bookmarks');
-    if (savedBookmarks) {
-      setBookmarks(JSON.parse(savedBookmarks));
-    }
-  }, []);
-
-  // Fetch news on component mount
   useEffect(() => {
     fetchNews();
   }, []);
 
-  // Handle category filter
   const handleCategoryChange = (cat) => {
     const selectedCategory = cat === 'All' ? '' : cat.toLowerCase();
     setCategory(selectedCategory);
-    setCurrentPage(1); // Reset to first page
-    setSearchTerm(''); // Clear search when changing category
+    setCurrentPage(1);
+    setSearchTerm('');
     fetchNews(selectedCategory);
   };
 
-  // Filter articles based on search term
   useEffect(() => {
     if (searchTerm) {
-      const filtered = articles.filter(article => {
+      const filtered = articles.filter((article) => {
         const title = article.title?.toLowerCase() || '';
         const description = article.description?.toLowerCase() || '';
         const search = searchTerm.toLowerCase();
         return title.includes(search) || description.includes(search);
       });
       setFilteredArticles(filtered);
-      setCurrentPage(1); // Reset to first page when searching
     } else {
       setFilteredArticles(articles);
     }
+    setCurrentPage(1);
   }, [searchTerm, articles]);
 
-  // Pagination calculations
-  const indexOfLastArticle = currentPage * ARTICLES_PER_PAGE;
-  const indexOfFirstArticle = indexOfLastArticle - ARTICLES_PER_PAGE;
-  const currentArticles = filteredArticles.slice(indexOfFirstArticle, indexOfLastArticle);
-  const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
-
-  // Pagination handlers
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // Bookmark functionality
   const handleBookmarkToggle = (article) => {
-    const isBookmarked = bookmarks.some(b => b.article_id === article.article_id);
-    
-    let updatedBookmarks;
-    if (isBookmarked) {
-      // Remove bookmark
-      updatedBookmarks = bookmarks.filter(b => b.article_id !== article.article_id);
+    const exists = bookmarks.some((b) => b.article_id === article.article_id);
+
+    let updated;
+    if (exists) {
+      updated = bookmarks.filter((b) => b.article_id !== article.article_id);
     } else {
-      // Add bookmark
-      updatedBookmarks = [...bookmarks, article];
+      updated = [...bookmarks, article];
     }
-    
-    setBookmarks(updatedBookmarks);
-    localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
+
+    setBookmarks(updated);
+    localStorage.setItem('bookmarks', JSON.stringify(updated));
   };
 
-  // Check if an article is bookmarked
-  const isArticleBookmarked = (articleId) => {
-    return bookmarks.some(b => b.article_id === articleId);
+  const isArticleBookmarked = (id) => {
+    return bookmarks.some((b) => b.article_id === id);
   };
+
+  const indexLast = currentPage * ARTICLES_PER_PAGE;
+  const indexFirst = indexLast - ARTICLES_PER_PAGE;
+  const currentArticles = filteredArticles.slice(indexFirst, indexLast);
+  const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
 
   return (
     <div className="news-page">
@@ -132,14 +108,26 @@ function News() {
         <button className="back-button" onClick={() => navigate('/dashboard')}>
           <FaArrowLeft /> Back to Dashboard
         </button>
+
         <h1 className="news-title">Latest News</h1>
-        
-        {/* Category Filter Buttons */}
+
+        {/* ⭐ Go to Bookmarks Button */}
+        <div className="bookmark-nav-btn-container">
+          <button
+            className="bookmark-nav-btn"
+            onClick={() => navigate('/bookmarks')}
+          >
+            ⭐ View Bookmarks
+          </button>
+        </div>
+
         <div className="category-filters">
           {categories.map((cat) => (
             <button
               key={cat}
-              className={`category-btn ${category === (cat === 'All' ? '' : cat.toLowerCase()) ? 'active' : ''}`}
+              className={`category-btn ${
+                category === (cat === 'All' ? '' : cat.toLowerCase()) ? 'active' : ''
+              }`}
               onClick={() => handleCategoryChange(cat)}
             >
               {cat}
@@ -147,7 +135,6 @@ function News() {
           ))}
         </div>
 
-        {/* Search Input */}
         <div className="search-container">
           <input
             type="text"
@@ -158,22 +145,16 @@ function News() {
           />
         </div>
 
-        {/* Content Area */}
         <div className="news-content">
           {loading && <Loader />}
-          
-          {error && (
-            <div className="error-message">
-              <p>{error}</p>
-            </div>
-          )}
-          
+          {error && <div className="error-message"><p>{error}</p></div>}
+
           {!loading && !error && filteredArticles.length === 0 && (
             <div className="empty-state">
               <p>No articles found</p>
             </div>
           )}
-          
+
           {!loading && !error && filteredArticles.length > 0 && (
             <>
               <div className="articles-grid">
@@ -186,24 +167,25 @@ function News() {
                   />
                 ))}
               </div>
-              
-              {/* Pagination Controls */}
+
               {totalPages > 1 && (
                 <div className="pagination">
                   <button
                     className="pagination-btn"
-                    onClick={handlePreviousPage}
                     disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
                   >
                     Previous
                   </button>
+
                   <span className="pagination-info">
                     Page {currentPage} of {totalPages}
                   </span>
+
                   <button
                     className="pagination-btn"
-                    onClick={handleNextPage}
                     disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
                   >
                     Next
                   </button>

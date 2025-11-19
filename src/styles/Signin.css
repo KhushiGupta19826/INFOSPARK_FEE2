@@ -1,22 +1,17 @@
-/* ===================================
-   SIGN IN PAGE STYLES
-   =================================== */
 
-/* Container for the entire sign-in page */
 .signin-container {
   min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Sign-in card wrapper */
 .signin-card {
   background: var(--white);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
   padding: var(--spacing-2xl);
   width: 100%;
   max-width: 450px;
@@ -34,11 +29,10 @@
   }
 }
 
-/* Form heading */
 .signin-card h1 {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  color: var(--black);
+  color: #764ba2;
   text-align: center;
   margin-bottom: var(--spacing-xs);
 }
@@ -50,14 +44,12 @@
   margin-bottom: var(--spacing-xl);
 }
 
-/* Form element */
 .signin-form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-/* Form group (label + input) */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -70,7 +62,6 @@
   color: var(--dark-gray);
 }
 
-/* Input fields */
 .signin-form input[type="email"],
 .signin-form input[type="password"] {
   width: 100%;
@@ -90,22 +81,19 @@
   color: var(--medium-gray);
 }
 
-/* Input focus states */
 .signin-form input[type="email"]:focus,
 .signin-form input[type="password"]:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
   background: var(--white);
 }
 
-/* Input hover state */
 .signin-form input[type="email"]:hover,
 .signin-form input[type="password"]:hover {
-  border-color: var(--primary-dark);
+  border-color: #764ba2;
 }
 
-/* Input error state */
 .signin-form input.input-error {
   border-color: var(--error-red);
 }
@@ -114,33 +102,32 @@
   box-shadow: 0 0 0 4px rgba(244, 67, 54, 0.1);
 }
 
-/* Submit button */
 .signin-button {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--primary-blue);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: var(--white);
   border: none;
   border-radius: 6px;
   font-size: var(--font-size-base);
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition-base) var(--ease-in-out),
-              transform var(--transition-fast) var(--ease-out),
-              box-shadow var(--transition-base) var(--ease-in-out);
-  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+  transition: transform var(--transition-fast) var(--ease-out),
+              box-shadow var(--transition-base) var(--ease-in-out),
+              filter var(--transition-base) var(--ease-in-out);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
   margin-top: var(--spacing-sm);
 }
 
 .signin-button:hover {
-  background: var(--primary-dark);
+  filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
 }
 
 .signin-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
 }
 
 .signin-button:disabled {
@@ -148,9 +135,9 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  filter: none;
 }
 
-/* Error message display */
 .error-message {
   background: #FFEBEE;
   color: var(--error-red);
@@ -182,7 +169,6 @@
   font-size: var(--font-size-lg);
 }
 
-/* Link to sign-up page for new users */
 .signup-link {
   text-align: center;
   margin-top: var(--spacing-xl);
@@ -193,7 +179,7 @@
 }
 
 .signup-link a {
-  color: var(--primary-blue);
+  color: #667eea;
   font-weight: 600;
   text-decoration: none;
   transition: color var(--transition-base) var(--ease-in-out),
@@ -201,21 +187,14 @@
 }
 
 .signup-link a:hover {
-  color: var(--primary-dark);
+  color: #764ba2;
   text-decoration: underline;
 }
 
 .signup-link a:active {
-  color: var(--primary-dark);
+  color: #764ba2;
 }
 
-/* ===================================
-   RESPONSIVE DESIGN
-   =================================== */
-
-/* Mobile: Default styles above (320px - 767px) */
-
-/* Tablet: 768px and up */
 @media (min-width: 768px) {
   .signin-container {
     padding: var(--spacing-2xl);
@@ -234,7 +213,6 @@
   }
 }
 
-/* Desktop: 1024px and up */
 @media (min-width: 1024px) {
   .signin-card {
     max-width: 500px;
@@ -251,7 +229,6 @@
   }
 }
 
-/* Accessibility: Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .signin-card,
   .error-message {
@@ -266,7 +243,6 @@
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .signin-form input[type="email"],
   .signin-form input[type="password"] {

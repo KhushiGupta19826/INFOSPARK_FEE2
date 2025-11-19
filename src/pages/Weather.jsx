@@ -32,7 +32,6 @@ function Weather() {
     setForecast([]);
 
     try {
-      // Fetch current weather
       const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
       const currentResponse = await fetch(currentWeatherUrl);
       
@@ -44,7 +43,6 @@ function Weather() {
       const currentData = await currentResponse.json();
       setWeatherData(currentData);
 
-      // Fetch 5-day forecast
       const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
       const forecastResponse = await fetch(forecastUrl);
       
