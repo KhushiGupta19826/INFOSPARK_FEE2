@@ -12,7 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Weather from "./pages/Weather";
 import News from "./pages/News";
 import Bookmarks from "./pages/Bookmarks";
-
+import About from "./pages/About";
 function App() {
   return (
     <AuthProvider>
