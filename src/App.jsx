@@ -60,7 +60,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
-          </Routes>
+            <Route path = "about" element = {<About/>}/>
+            </Routes>
         </div>
       </BrowserRouter>
     </AuthProvider>
